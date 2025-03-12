@@ -1,0 +1,61 @@
+//work with JDBC and create a database and table.
+package jdbc;
+import java.sql.*;
+import java.util.Scanner;
+class  db{
+	void database()throws SQLException{
+		String url="jdbc:mysql://localhost:3306/";
+		String un="root";
+		String pw="Neha@123sql@";
+			Connection con=DriverManager.getConnection(url,un,pw);
+			String query="create database busdetails";
+			Statement st=con.createStatement();
+			System.out.println(st.executeUpdate(query));}
+}
+class table{
+	void create_table()throws SQLException {
+		String url="jdbc:mysql://localhost:3306/busdetails";
+		String un="root";
+		String pw="Neha@123sql@";
+			Connection con=DriverManager.getConnection(url,un,pw);
+			String query="create table bus(bus_no int,busroute varchar(20),bus_startpoint varchar(30),bus_endpoint varchar(30),bus_color varchar(20))";
+			Statement st=con.createStatement();
+			System.out.println(st.executeUpdate(query));}
+}
+class insert{
+	void insert_table()throws SQLException {
+		Scanner oj=new Scanner(System.in);
+		String url="jdbc:mysql://localhost:3306/busdetails";
+		String un="root";
+		String pw="Neha@123sql@";
+			Connection con=DriverManager.getConnection(url,un,pw);
+			String query="insert into bus values(?,?,?,?,?)";
+			int bus_no=oj.nextInt();
+			String bus_route=oj.nextLine();
+			String bus_startpoint=oj.nextLine();
+			String bus_endpoint=oj.nextLine();
+			String bus_color=oj.nextLine();
+			PreparedStatement ps=con.prepareStatement(query);
+			ps.setInt(1, bus_no);
+			ps.setString(2,bus_route);
+			ps.setString(3,bus_startpoint);
+			ps.setString(4,bus_endpoint);
+			ps.setString(5,bus_color);
+			System.out.println(ps.executeUpdate());}
+}
+class del{
+	void del_tbl()throws SQLException {
+		String url="jdbc:mysql://localhost:3306/busdetails";
+		String un="root";
+		String pw="Neha@123sql@";
+			Connection con=DriverManager.getConnection(url,un,pw);
+			String query="delete from bus where bus_no=14";
+			Statement st=con.createStatement();
+			st.executeUpdate(query);}
+	}
+class melon{
+	public static void main(String...h)throws SQLException{
+		insert in=new insert();
+		in.insert_table();
+	}
+}
